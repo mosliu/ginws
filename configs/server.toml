@@ -1,0 +1,9 @@
+name="gin-websocket-test-project"
+[server]
+    address="127.0.0.1"
+    port="2303"
+[logs]
+    [console]
+        level="debug"
+    [file]
+        level="info"

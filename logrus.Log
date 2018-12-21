@@ -1,0 +1,9 @@
+time="2018-12-20T15:59:11+08:00" level=warning msg="file?" pkg=main
+time="2018-12-20T16:02:11+08:00" level=warning msg="file?" pkg=main
+time="2018-12-21T09:07:08+08:00" level=warning msg="file?" pkg=main source="main.go:47"
+time="2018-12-21T09:55:59+08:00" level=warning msg="file?" pkg=main source="main.go:47"
+time="2018-12-21T09:57:24+08:00" level=warning msg="file?" pkg=main source="main.go:46"
+time="2018-12-21T09:57:57+08:00" level=warning msg="file?" pkg=main source="main.go:46"
+time="2018-12-21T09:58:24+08:00" level=warning msg="file?" pkg=main source="main.go:46"
+time="2018-12-21T09:59:04+08:00" level=warning msg="file?" pkg=main source="main.go:46"
+time="2018-12-21T10:00:00+08:00" level=warning msg="file?" pkg=main source="main.go:47"
