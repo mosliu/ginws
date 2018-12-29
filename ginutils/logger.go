@@ -39,6 +39,7 @@ func Logger(log *logrus.Logger) gin.HandlerFunc {
         if dataLength < 0 {
             dataLength = 0
         }
+        proto := c.Request.Proto
 
         entry := logrus.NewEntry(log).WithFields(logrus.Fields{
             "hostname":   hostname,
@@ -49,6 +50,7 @@ func Logger(log *logrus.Logger) gin.HandlerFunc {
             "path":       path,
             "referer":    referer,
             "dataLength": dataLength,
+            "proto": proto,
             "userAgent":  clientUserAgent,
         })
 

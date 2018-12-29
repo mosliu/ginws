@@ -1,4 +1,4 @@
-package ws
+package wsutils
 
 // 代码 参考 https://blog.csdn.net/dipolar/article/details/51532231
 type Hub struct {

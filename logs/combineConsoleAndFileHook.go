@@ -4,16 +4,16 @@ import (
     "github.com/sirupsen/logrus"
 )
 
-type rotateHook struct {
+type combineHook struct {
 }
 
 // Levels implement levels
-func (hook rotateHook) Levels() []logrus.Level {
+func (hook combineHook) Levels() []logrus.Level {
     return logrus.AllLevels
 }
 
 // Fire implement fire
-func (hook rotateHook) Fire(entry *logrus.Entry) error {
+func (hook combineHook) Fire(entry *logrus.Entry) error {
 
     logF.WithFields(entry.Data)
     //logF.Level = entry.Level
@@ -42,7 +42,7 @@ func (hook rotateHook) Fire(entry *logrus.Entry) error {
     return nil
 }
 
-func NewRotateHook() logrus.Hook {
-    hook := rotateHook{}
+func NewCombineConsoleAndFile() logrus.Hook {
+    hook := combineHook{}
     return hook
 }

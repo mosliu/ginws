@@ -2,8 +2,13 @@ name="gin-websocket-test-project"
 [server]
     address="127.0.0.1"
     port="2303"
-[logs]
-    [console]
-        level="debug"
-    [file]
-        level="info"
+[logs.level]
+    console="debug"
+    file="info"
+[logs.file]
+    path="."
+    name="logrus"
+    maxcount=5
+    suffix="log"
+[gin]
+    mode="debug"  #可选项debug / release

@@ -3,12 +3,20 @@ package utils
 import (
     "fmt"
     "github.com/fsnotify/fsnotify"
+    "github.com/sirupsen/logrus"
     "github.com/spf13/viper"
     "os"
 )
 
+var isConfigLoaded = false
 
+func GetConfigLoadStatus() bool {
+    return isConfigLoaded
+}
 func LoadConfig() {
+    if isConfigLoaded {
+        return
+    }
     //viper.SetEnvPrefix(cmdRoot)
     viper.AutomaticEnv()
     //replacer := strings.NewReplacer(".", "_")
@@ -29,15 +37,20 @@ func LoadConfig() {
     //监视配置文件，重新读取配置数据
     viper.WatchConfig()
     viper.OnConfigChange(func(e fsnotify.Event) {
-        fmt.Println("Config file changed:", e.Name)
+        logrus.Warnln("Config file changed:", e.Name)
+        //fmt.Println("Config file changed:", e.Name)
     })
 
-    //environment := viper.GetBool("security.enabled")
-    //fmt.Println("security.enabled:", environment)
+    //name := viper.GetString("name")
+    //fmt.Println("name:", name)
+    //consoleLevel := viper.GetString("logs.console.level")
+    //fmt.Println("logs.console.level:", consoleLevel)
     //
     //fullstate := viper.GetString("statetransfer.timeout.fullstate")
     //fmt.Println("statetransfer.timeout.fullstate:", fullstate)
     //
     //abcdValue := viper.GetString("peer.abcd")
     //fmt.Println("peer.abcd:", abcdValue)
+
+    isConfigLoaded = true
 }

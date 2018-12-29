@@ -1,4 +1,4 @@
-package ws
+package wsutils
 
 import (
     "github.com/gorilla/websocket"
