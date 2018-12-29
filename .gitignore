@@ -1,1 +1,3 @@
-*.exe*.log/configs/personal.toml
+*.exe
+*.log
+/configs/personal.toml
