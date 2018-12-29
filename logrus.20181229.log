@@ -1,0 +1,40 @@
+{"level":"info","msg":"File Logger Initialized.","time":"2018-12-29T09:53:51+08:00"}
+{"level":"info","msg":"gin-websocket-test-project starting","time":"2018-12-29T09:53:51+08:00"}
+{"level":"info","msg":"File Logger Initialized.","time":"2018-12-29T14:01:10+08:00"}
+{"level":"info","msg":"gin-websocket-test-project starting","time":"2018-12-29T14:01:10+08:00"}
+{"level":"info","msg":"File Logger Initialized.","time":"2018-12-29T14:01:44+08:00"}
+{"level":"info","msg":"gin-websocket-test-project starting","time":"2018-12-29T14:01:45+08:00"}
+{"level":"info","msg":"127.0.0.1 - DESKTOP-64JVGQ5 [29/Dec/2018:14:02:03 +0800] \"GET /assert/client.html\" 304 0 \"\" \"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36\" (4ms)","time":"2018-12-29T14:02:03+08:00"}
+{"level":"info","msg":"File Logger Initialized.","time":"2018-12-29T14:03:58+08:00"}
+{"level":"info","msg":"gin-websocket-test-project starting","time":"2018-12-29T14:03:59+08:00"}
+{"level":"info","msg":"File Logger Initialized.","time":"2018-12-29T14:10:46+08:00"}
+{"level":"info","msg":"gin-websocket-test-project starting","time":"2018-12-29T14:10:46+08:00"}
+{"level":"warning","msg":"file?","time":"2018-12-29T14:10:46+08:00"}
+{"level":"info","msg":"File Logger Initialized.","time":"2018-12-29T14:16:25+08:00"}
+time="2018-12-29T14:16:25+08:00" level=info msg="File Logger Initialized."
+{"level":"info","msg":"gin-websocket-test-project starting","time":"2018-12-29T14:16:25+08:00"}
+time="2018-12-29T14:16:25+08:00" level=info msg="gin-websocket-test-project starting"
+{"level":"warning","msg":"file?","time":"2018-12-29T14:16:25+08:00"}
+time="2018-12-29T14:16:25+08:00" level=warning msg="file?"
+{"level":"info","msg":"Console Logger Initialized.","source":"logs/init.go:90","time":"2018-12-29T14:21:21+08:00"}
+{"level":"info","msg":"gin-websocket-test-project starting","pkg":"main","source":"ginws/main.go:60","time":"2018-12-29T14:21:21+08:00"}
+{"level":"warning","msg":"file?","pkg":"main","source":"ginws/main.go:61","time":"2018-12-29T14:21:21+08:00"}
+{"level":"debug","msg":"color?","pkg":"main","source":"ginws/main.go:62","time":"2018-12-29T14:21:21+08:00"}
+{"level":"debug","msg":"color!","pkg":"main","source":"ginws/main.go:63","time":"2018-12-29T14:21:21+08:00"}
+{"level":"info","msg":"Console Logger Initialized.","source":"logs/init.go:100","time":"2018-12-29T14:25:34+08:00"}
+{"level":"info","msg":"gin-websocket-test-project starting","pkg":"main","source":"ginws/main.go:60","time":"2018-12-29T14:25:34+08:00"}
+{"level":"warning","msg":"file?","pkg":"main","source":"ginws/main.go:61","time":"2018-12-29T14:25:34+08:00"}
+{"level":"debug","msg":"color?","pkg":"main","source":"ginws/main.go:62","time":"2018-12-29T14:25:34+08:00"}
+{"level":"debug","msg":"color!","pkg":"main","source":"ginws/main.go:63","time":"2018-12-29T14:25:34+08:00"}
+{"level":"info","msg":"Console Logger Initialized.","source":"logs/init.go:90","time":"2018-12-29T14:37:27+08:00"}
+{"level":"info","msg":"gin-websocket-test-project starting","pkg":"main","source":"ginws/main.go:60","time":"2018-12-29T14:37:27+08:00"}
+{"level":"warning","msg":"file?","pkg":"main","source":"ginws/main.go:61","time":"2018-12-29T14:37:27+08:00"}
+{"level":"info","msg":"Console Logger Initialized.","source":"logs/init.go:90","time":"2018-12-29T14:39:57+08:00"}
+{"level":"info","msg":"gin-websocket-test-project starting","pkg":"main","source":"ginws/main.go:60","time":"2018-12-29T14:39:58+08:00"}
+{"level":"warning","msg":"file?","pkg":"main","source":"ginws/main.go:61","time":"2018-12-29T14:39:58+08:00"}
+{"level":"info","msg":"Console Logger Initialized.","source":"logs/init.go:90","time":"2018-12-29T14:41:14+08:00"}
+{"level":"info","msg":"gin-websocket-test-project starting","pkg":"main","source":"ginws/main.go:60","time":"2018-12-29T14:41:14+08:00"}
+{"level":"warning","msg":"file?","pkg":"main","source":"ginws/main.go:61","time":"2018-12-29T14:41:14+08:00"}
+{"level":"info","msg":"Console Logger Initialized.","source":"logs/init.go:90","time":"2018-12-29T14:42:14+08:00"}
+{"level":"info","msg":"gin-websocket-test-project starting","pkg":"main","source":"ginws/main.go:60","time":"2018-12-29T14:42:14+08:00"}
+{"level":"warning","msg":"file?","pkg":"main","source":"ginws/main.go:61","time":"2018-12-29T14:42:14+08:00"}
