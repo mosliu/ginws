@@ -17,6 +17,7 @@ func LoadConfig() {
     if isConfigLoaded {
         return
     }
+
     //viper.SetEnvPrefix(cmdRoot)
     viper.AutomaticEnv()
     //replacer := strings.NewReplacer(".", "_")
@@ -34,6 +35,14 @@ func LoadConfig() {
         os.Exit(1)
     }
 
+    exists,isdir,err := PathFileExists("./configs/personal.toml")
+    if err ==nil {
+        if exists && (!isdir){
+            pfile,_:=os.Open("./configs/personal.toml")
+            viper.MergeConfig(pfile)
+        }
+    }
+
     //监视配置文件，重新读取配置数据
     viper.WatchConfig()
     viper.OnConfigChange(func(e fsnotify.Event) {
@@ -41,8 +50,8 @@ func LoadConfig() {
         //fmt.Println("Config file changed:", e.Name)
     })
 
-    //name := viper.GetString("name")
-    //fmt.Println("name:", name)
+    name := viper.GetString("tbk.apkey")
+    fmt.Println("apk:", name)
     //consoleLevel := viper.GetString("logs.console.level")
     //fmt.Println("logs.console.level:", consoleLevel)
     //

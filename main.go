@@ -1,6 +1,7 @@
 package main
 
 import (
+    "github.com/fatih/color"
     "github.com/gin-gonic/gin"
     "github.com/gorilla/websocket"
     "github.com/mosliu/ginws/ginutils"
@@ -57,9 +58,9 @@ func ping(ctx *gin.Context) {
 func main() {
     //test()
     log.Infof("%s starting",viper.GetString("name"))
-    //log.Warnln("file?")
-    //log.Debugln("color?")
-    //log.Debugln(color.BlueString("color!"))
+    log.Warnln("file?")
+    log.Debugln("color?")
+    log.Debugln(color.BlueString("color!"))
     //r := gin.Default()
     go wsutils.CommonHub.Run()
     r := gin.New()

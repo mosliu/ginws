@@ -7,6 +7,7 @@ import (
     "github.com/shiena/ansicolor"
     "github.com/sirupsen/logrus"
     "github.com/spf13/viper"
+    "io"
     "os"
     "path/filepath"
     "time"
@@ -34,11 +35,11 @@ func init() {
     logFilename := viper.GetString("logs.file.name")
     maxcount := viper.GetInt("logs.file.maxcount")
     logFileSuffix := viper.GetString("logs.file.suffix")
-    initConsoleLogger(levelConsole)
-    initFileLogger(levelFile, logPath, logFilename,logFileSuffix, uint(maxcount))
+    initConsoleLogger(levelConsole, levelFile, logPath, logFilename, logFileSuffix, uint(maxcount))
+    //initFileLogger(levelFile, logPath, logFilename,logFileSuffix, uint(maxcount))
 }
 
-func initConsoleLogger(level string) {
+func initConsoleLogger(level string, levelFile string, logPath string, logFilename string, logFileSuffix string, maxcount uint) {
     lvlConsole, err := logrus.ParseLevel(level)
 
     if err != nil {
@@ -58,12 +59,61 @@ func initConsoleLogger(level string) {
     Log.SetOutput(colorWriter)
 
     Log.AddHook(NewContextHook())
-    Log.AddHook(NewCombineConsoleAndFile())
+    //Log.AddHook(NewCombineConsoleAndFile())
+
+
+
+    logfilefullname := filepath.Join(logPath, logFilename)
+    writer, err := rotatelogs.New(
+        logfilefullname+".%Y%m%d."+logFileSuffix,
+        rotatelogs.WithLinkName(logfilefullname+"."+logFileSuffix),
+        // WithMaxAge和WithRotationCount二者只能设置一个，
+        // WithMaxAge设置文件清理前的最长保存时间，
+        // WithRotationCount设置文件清理前最多保存的个数。
+        //rotatelogs.WithMaxAge(time.Hour*24),
+        rotatelogs.WithRotationCount(maxcount),
+        // WithRotationTime设置日志分割的时间，这里设置为一天分割一次
+        rotatelogs.WithRotationTime(24*time.Hour),
+    )
+
+    if err != nil {
+        logrus.Errorln("config local file system for logger error: %v", err)
+    }
+    lvlFile, err := logrus.ParseLevel(levelFile)
+    if err != nil {
+        Log.Warnln(err)
+    }
+
+    lfsHook := lfshook.NewHook(getLevelMap(lvlFile,writer), &logrus.JSONFormatter{})
+    Log.AddHook(lfsHook)
 
     Log.Info("Console Logger Initialized.")
 }
 
-func initFileLogger(level string, logPath string, logFilename string,logFileSuffix string, maxcount uint) {
+func getLevelMap(lvl logrus.Level, w io.Writer) lfshook.WriterMap {
+    wmap := make(map[logrus.Level]io.Writer)
+    if lvl >= logrus.DebugLevel {
+        wmap[logrus.DebugLevel]= w
+    }
+    if lvl >= logrus.InfoLevel {
+        wmap[logrus.InfoLevel]= w
+    }
+    if lvl >= logrus.WarnLevel {
+        wmap[logrus.WarnLevel]= w
+    }
+    if lvl >= logrus.ErrorLevel {
+        wmap[logrus.ErrorLevel]= w
+    }
+    if lvl >= logrus.FatalLevel {
+        wmap[logrus.FatalLevel]= w
+    }
+    if lvl >= logrus.PanicLevel {
+        wmap[logrus.PanicLevel]= w
+    }
+    return wmap
+}
+
+func initFileLogger(level string, logPath string, logFilename string, logFileSuffix string, maxcount uint) {
     //先检查目录
     exist, err := utils.PathExists(logPath)
     if err != nil {
@@ -109,7 +159,7 @@ func initFileLogger(level string, logPath string, logFilename string,logFileSuff
     //设定level
     lvlFile, err := logrus.ParseLevel(level)
     if err != nil {
-        Log.Fatal(err)
+        Log.Warnln(err)
         logF.SetLevel(logrus.InfoLevel)
     } else {
         logF.SetLevel(lvlFile)
@@ -125,10 +175,9 @@ func initFileLogger(level string, logPath string, logFilename string,logFileSuff
     }, &logrus.JSONFormatter{})
 
     logF.AddHook(lfsHook)
-    //logF.SetOutput(file)
+    logF.SetOutput(writer)
 
     //logF.SetFormatter(&logrus.JSONFormatter{})
-
 
     Log.Info("File Logger Initialized.")
     //LogF.Info("Logger Component Initialized.")
