@@ -5,6 +5,7 @@ import (
     "github.com/gin-gonic/gin"
     "github.com/gorilla/websocket"
     "github.com/mosliu/ginws/ginutils"
+    "github.com/mosliu/ginws/webget"
     "github.com/mosliu/ginws/wsutils"
     "github.com/spf13/viper"
     "net/http"
@@ -75,6 +76,9 @@ func main() {
     r.GET("/wsutils", wsHandler)
     //bindAddress := "localhost:2303"
     bindAddress := viper.GetString("server.address") + ":" + viper.GetString("server.port")
-    r.Run(bindAddress)
+
     log.Infoln("Listening on ",bindAddress)
+
+    webget.TransTKL("Aa")
+    r.Run(bindAddress)
 }

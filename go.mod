@@ -8,7 +8,7 @@ require (
 	github.com/gin-gonic/gin v1.3.0
 	github.com/golang/protobuf v1.2.0 // indirect
 	github.com/gorilla/websocket v1.4.0
-	github.com/json-iterator/go v1.1.5 // indirect
+	github.com/json-iterator/go v1.1.5
 	github.com/lestrrat-go/file-rotatelogs v2.2.0+incompatible
 	github.com/lestrrat-go/strftime v0.0.0-20180821113735-8b31f9c59b0f // indirect
 	github.com/mattn/go-colorable v0.0.9 // indirect

@@ -35,10 +35,10 @@ func LoadConfig() {
         os.Exit(1)
     }
 
-    exists,isdir,err := PathFileExists("./configs/personal.toml")
+    exists,isdir,err := PathFileExists("./configs/private.toml")
     if err ==nil {
         if exists && (!isdir){
-            pfile,_:=os.Open("./configs/personal.toml")
+            pfile,_:=os.Open("./configs/private.toml")
             viper.MergeConfig(pfile)
         }
     }
@@ -50,8 +50,8 @@ func LoadConfig() {
         //fmt.Println("Config file changed:", e.Name)
     })
 
-    name := viper.GetString("tbk.apkey")
-    fmt.Println("apk:", name)
+    //name := viper.GetString("tbk.apkey")
+    //fmt.Println("apk:", name)
     //consoleLevel := viper.GetString("logs.console.level")
     //fmt.Println("logs.console.level:", consoleLevel)
     //

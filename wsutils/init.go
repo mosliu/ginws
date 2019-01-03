@@ -7,7 +7,3 @@ import (
 var log = logs.Log.WithFields(logrus.Fields{
     "pkg":"wsutils",
 })
-
-var logf = logs.Log.WithFields(logrus.Fields{
-    "pkg":"wsutils",
-})

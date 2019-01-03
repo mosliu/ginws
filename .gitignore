@@ -1,3 +1,4 @@
 *.exe
 *.log
-/configs/personal.toml
+/src/github.com/mosliu/ginws/configs/private.toml
+configs/private.toml
