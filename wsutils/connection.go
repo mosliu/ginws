@@ -2,9 +2,11 @@ package wsutils
 
 import (
     "github.com/gorilla/websocket"
+    "github.com/mosliu/ginws/webget"
 )
 
 type Connection struct {
+    Id string
     // websocket 连接器
     WsConn *websocket.Conn
 
@@ -19,6 +21,11 @@ func (c *Connection) Reader() {
             break
         }
         CommonHub.Broadcast <- message
+        ok,str :=webget.TransTKL(string(message))
+        if ok{
+            CommonHub.Broadcast <- []byte(str)
+        }
+
     }
     c.WsConn.Close()
 }

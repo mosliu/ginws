@@ -2,7 +2,6 @@ package webget
 
 import (
     "crypto/tls"
-    "fmt"
     "github.com/mosliu/ginws/utils"
     "github.com/spf13/viper"
     "io/ioutil"
@@ -39,7 +38,7 @@ type MsgData struct{
 }
 
 //转换淘口令
-func TransTKL(inmsg string) (ok bool, url string) {
+func TransTKL(inmsg string) (ok bool, outmsg string) {
     //open.32ds.cn
     ok = false
 
@@ -66,9 +65,9 @@ func TransTKL(inmsg string) (ok bool, url string) {
     //生成Query String
     query := request.URL.Query()
     query.Add("apkey", apkey)
-    query.Add("kouling", "￥4kJcb4xSs9a￥")
+    //query.Add("kouling", "￥4kJcb4xSs9a￥")
     //query.Add("kouling", "￥4kJcbpxSs9a￥")
-    //query.Add("kouling", url)
+    query.Add("kouling", inmsg)
     //设回
     request.URL.RawQuery = query.Encode()
 
@@ -78,6 +77,7 @@ func TransTKL(inmsg string) (ok bool, url string) {
     log.WithField("status", response.StatusCode).Debug("Request executed.")
     if response.StatusCode == 200 {
         //获取成功处理
+        ok = true
         raw := response.Body
         defer raw.Close()
         body, err := ioutil.ReadAll(raw)
@@ -85,8 +85,10 @@ func TransTKL(inmsg string) (ok bool, url string) {
         var msg Msg
         json.Unmarshal(body, &msg)
         bodystr := string(body)
-        fmt.Println(bodystr)
+        //fmt.Println(bodystr)
         log.Debug(msg)
+
+        outmsg = bodystr
 
     } else {
         log.WithField("status", response.StatusCode).Debug("Request error!")
