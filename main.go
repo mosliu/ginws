@@ -4,6 +4,7 @@ import (
     "github.com/fatih/color"
     "github.com/gin-gonic/gin"
     "github.com/gorilla/websocket"
+    "github.com/mosliu/ginws/crawlers"
     "github.com/mosliu/ginws/ginutils"
     "github.com/mosliu/ginws/webget"
     "github.com/mosliu/ginws/wsutils"
@@ -24,7 +25,7 @@ func wsHandler(ctx *gin.Context) {
     if err != nil {
         return
     }
-    c := &wsutils.Connection{SendChan: make(chan []byte, 256), WsConn: ws1}
+    c := &wsutils.Client{SendChan: make(chan []byte, 256), WsConn: ws1}
     wsutils.CommonHub.Register <- c
     defer func() { wsutils.CommonHub.Unregister <- c }()
     go c.Writer()
@@ -56,7 +57,7 @@ func ping(ctx *gin.Context) {
     }
 }
 
-func main() {
+func main2() {
     //test()
     log.Infof("%s starting",viper.GetString("name"))
     log.Warnln("file?")
@@ -80,5 +81,10 @@ func main() {
     log.Infoln("Listening on ",bindAddress)
 
     webget.TransTKL("Aa")
+    //crawlers.GetTrade()
     r.Run(bindAddress)
+}
+
+func main() {
+    crawlers.GetTrade()
 }

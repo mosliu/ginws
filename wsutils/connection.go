@@ -5,7 +5,7 @@ import (
     "github.com/mosliu/ginws/webget"
 )
 
-type Connection struct {
+type Client struct {
     Id string
     // websocket 连接器
     WsConn *websocket.Conn
@@ -14,7 +14,7 @@ type Connection struct {
     SendChan chan []byte
 }
 
-func (c *Connection) Reader() {
+func (c *Client) Reader() {
     for {
         _, message, err := c.WsConn.ReadMessage()
         if err != nil {
@@ -30,7 +30,7 @@ func (c *Connection) Reader() {
     c.WsConn.Close()
 }
 
-func (c *Connection) Writer() {
+func (c *Client) Writer() {
     for message := range c.SendChan {
         err := c.WsConn.WriteMessage(websocket.TextMessage, message)
         if err != nil {

@@ -2,6 +2,7 @@ module github.com/mosliu/ginws
 
 require (
 	github.com/BurntSushi/toml v0.3.1 // indirect
+	github.com/PuerkitoBio/goquery v1.5.0
 	github.com/fatih/color v1.7.0
 	github.com/fsnotify/fsnotify v1.4.7
 	github.com/gin-contrib/sse v0.0.0-20170109093832-22d885f9ecc7 // indirect
