@@ -12,3 +12,29 @@ name="gin-websocket-test-project"
     suffix="log"
 [gin]
     mode="debug"  #可选项debug / release
+
+[db]
+    sqlite_path = "./gorm.db"
+    db_host     = "192.168.56.160"
+    db_port     = "5432"
+    db_user     = "gorm"
+    db_name   = "testdb"
+    db_password = "123456"
+
+[casbin]
+    config = './configs/auth.conf'
+    policy = '/vagrant/go/auth.csv'
+
+[jwt]
+    realm = "UsingJwt"
+    key = "just use this one"
+    loginPath='/login'
+    authPath='/auth'
+    refreshPath='/refresh_token'
+    testPath='/hello'
+    tokenLookup='header: Authorization, query: token, cookie: jwt'
+    tokenHeadName='Bearer'
+
+[rbac]
+    admin_name = 'root'
+    admin_pass = 'labthink-staff'
