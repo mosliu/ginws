@@ -4,20 +4,56 @@ import (
     "github.com/fatih/color"
     "github.com/gin-gonic/gin"
     "github.com/gorilla/websocket"
-    "github.com/mosliu/ginws/middleware/jwt"
-
     "github.com/mosliu/ginws/db"
     "github.com/mosliu/ginws/ginutils"
+    "github.com/mosliu/ginws/middleware/jwt"
     "github.com/mosliu/ginws/webget"
     "github.com/mosliu/ginws/wsutils"
     "github.com/spf13/viper"
+    "os"
+    "os/signal"
+    "sync"
+    "syscall"
 
     //这个包用来实现一个 HTTP 的 web 框架
     "net/http"
 )
 
+//退出用 等待组
+var waitGroupForExit sync.WaitGroup
+//退出清理操作。
+func doExit() {
+    log.Infoln("Programme exiting....")
+    //do sth
+    log.Infoln("Programme exited.")
+    os.Exit(0)
+}
+
+//解析退出信号
+func parseSig(sigChan chan os.Signal) {
+    waitGroupForExit.Add(1)
+    for sig := range sigChan {
+        switch sig {
+        case syscall.SIGHUP, syscall.SIGKILL, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT:
+            log.Infoln("Receive signal:", sig, ",do exit ops")
+            defer waitGroupForExit.Done()
+            doExit()
+        default:
+            log.Infoln("Receive signal:", sig, " do nothing.")
+        }
+    }
+}
+
+
 //main 包必要一个 main 函数，作为起点
 func main() {
+    //信号程道
+    sigChan := make(chan os.Signal)
+    //监听指定的信号
+    signal.Notify(sigChan)
+
+    go parseSig(sigChan)
+
     jwt.InitDbAndCasbin()
 
     //func Default() *Engine
@@ -51,6 +87,9 @@ func main() {
     }
 
     r.Run(":" + viper.GetString("server.port")) //在 0.0.0.0:配置端口 上启监听
+
+    //退出等待
+    waitGroupForExit.Wait()
 }
 
 var upGrader = websocket.Upgrader{

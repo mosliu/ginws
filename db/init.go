@@ -1,7 +1,9 @@
 package db
+
 import (
     "fmt"
     "github.com/jinzhu/gorm"
+    _ "github.com/jinzhu/gorm/dialects/sqlite"
     "github.com/json-iterator/go"
     "github.com/mosliu/ginws/logs"
     "github.com/sirupsen/logrus"
