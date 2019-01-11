@@ -1,4 +1,6 @@
 package jwt
+// COPY FROM https://github.com/appleboy/gin-jwt
+// I use go mod, so dislike who use gpk.in
 
 import (
     "crypto/rsa"

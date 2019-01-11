@@ -1,12 +1,12 @@
-package db
+package handlers
 
 import (
-    "github.com/json-iterator/go"
     "github.com/mosliu/ginws/logs"
     "github.com/sirupsen/logrus"
 )
 
+// 你可以创建很多instance
+//Log to stdout.
 var log = logs.Log.WithFields(logrus.Fields{
-    "pkg": "db",
+    "pkg":"handlers",
 })
-var json = jsoniter.ConfigCompatibleWithStandardLibrary

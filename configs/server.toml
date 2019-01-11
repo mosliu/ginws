@@ -14,20 +14,40 @@ name="gin-websocket-test-project"
     mode="debug"  #可选项debug / release
 
 [db]
+    db_type = "sqlite3"  # 可选项 sqlite3 mysql postgres none
     sqlite_path = "./gorm.db"
     db_host     = "192.168.56.160"
     db_port     = "5432"
     db_user     = "gorm"
     db_name   = "testdb"
     db_password = "123456"
+    db_charset ="utf8"  # utf8 for mysql
+    db_sslmode ="disable"  # disable for postgres
+    log_mode = true
+    max_conn = 200
+    idle_con = 100
+
+[db.authdb]
+    db_type = "sqlite3"  # 可选项 sqlite3 mysql postgres none
+    sqlite_path = "./gorm.db"
+    db_host     = "192.168.56.160"
+    db_port     = "5432"
+    db_user     = "gorm"
+    db_name   = "testdb"
+    db_password = "123456"
+    db_charset ="utf8"  # utf8 for mysql
+    db_sslmode ="disable"  # disable for postgres
+    log_mode = true
+    max_conn = 200
+    idle_con = 100
 
 [casbin]
     config = './configs/auth.conf'
     policy = '/vagrant/go/auth.csv'
 
 [jwt]
-    realm = "UsingJwt"
-    key = "just use this one"
+    realm = "Ginws"
+    key = "just use this one"  #用来进行签名的密钥，就是加盐用的
     loginPath='/login'
     authPath='/auth'
     refreshPath='/refresh_token'
