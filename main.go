@@ -28,7 +28,7 @@ func doExit() {
 
 //解析退出信号
 func parseSig(sigChan chan os.Signal) {
-    waitGroupForExit.Add(1)
+
     for sig := range sigChan {
         switch sig {
         case syscall.SIGHUP, syscall.SIGKILL, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT:
@@ -93,6 +93,7 @@ func startGinServer() {
 
 //main 包必要一个 main 函数，作为起点
 func main() {
+    waitGroupForExit.Add(1)
     //信号程道
     sigChan := make(chan os.Signal)
     //监听指定的信号

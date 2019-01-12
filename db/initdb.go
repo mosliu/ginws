@@ -10,23 +10,26 @@ import (
 )
 
 //定义一个内部全局的 db 指针用来进行认证，数据校验
+//var AuthDB = &gorm.DB{}
 var AuthDB *gorm.DB
 //定义一个内部全局的 db 指针用来进行认证，数据校验
 var MainDB *gorm.DB
 
 func init() {
-    InitDb(AuthDB,"db.authdb")
-    InitDb(MainDB,"db")
+    log.Infof("AuthDB:%x", AuthDB)
+    AuthDB = InitDb("db.authdb")
+    log.Infof("AuthDB:%x", AuthDB)
+    MainDB = InitDb("db")
 }
 
 // 初始化数据库，使用配置中confPrefix前缀的配置
-func InitDb(initdb *gorm.DB,confPrefix string) {
-    dbType := viper.GetString(confPrefix+".db_type")
+func InitDb(confPrefix string) *gorm.DB {
+    dbType := viper.GetString(confPrefix + ".db_type")
     var dbToOpen *gorm.DB
     var err error
     switch dbType {
     case "sqlite3":
-        sqlitePath := viper.GetString(confPrefix+".sqlitePath")
+        sqlitePath := viper.GetString(confPrefix + ".sqlite_path")
         dbToOpen, err = gorm.Open(dbType, sqlitePath)
     case "mysql":
         viper.SetDefault(confPrefix+".db_charset", "utf8")
@@ -58,22 +61,22 @@ func InitDb(initdb *gorm.DB,confPrefix string) {
         log.Panicln(err)
     } else {
         fmt.Println("Successfully connected!") //如果没有出错，就打印成功连接的信息
-        initdb = dbToOpen                        //连接成功的情况下将认证的数据库进行赋值
     }
     //AuthDB.LogMode(true)
     viper.SetDefault(confPrefix+".log_mode", false)
-    initdb.LogMode(viper.GetBool(confPrefix+".log_mode"))
-    initdb.SetLogger(log)
+    dbToOpen.LogMode(viper.GetBool(confPrefix + ".log_mode"))
+    dbToOpen.SetLogger(log)
     //用于设置最大打开的连接数，默认值为0表示不限制。
     viper.SetDefault(confPrefix+".max_conn", 200)
-    initdb.DB().SetMaxOpenConns(viper.GetInt(confPrefix+".max_conn"))
+    dbToOpen.DB().SetMaxOpenConns(viper.GetInt(confPrefix + ".max_conn"))
     //用于设置闲置的连接数。
     viper.SetDefault(confPrefix+".idle_con", 100)
-    initdb.DB().SetMaxOpenConns(viper.GetInt(confPrefix+".idle_con"))
-    initdb.DB().Ping()
+    dbToOpen.DB().SetMaxOpenConns(viper.GetInt(confPrefix + ".idle_con"))
+    dbToOpen.DB().Ping()
+    return dbToOpen
 }
 
-func CloseDbs(){
+func CloseDbs() {
     AuthDB.Close()
     MainDB.Close()
 }
