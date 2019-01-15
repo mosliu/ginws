@@ -2,6 +2,7 @@ package main
 
 import (
     "github.com/gin-gonic/gin"
+    "github.com/mosliu/ginws/crawlers"
     "github.com/mosliu/ginws/db"
     "github.com/mosliu/ginws/ginutils"
     "github.com/mosliu/ginws/handlers"
@@ -102,7 +103,7 @@ func main() {
     go parseSig(sigChan)
 
     go startGinServer()
-
+    crawlers.GetTrade()
     //退出等待
     waitGroupForExit.Wait()
 }
